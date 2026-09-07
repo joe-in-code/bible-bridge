@@ -1,0 +1,16 @@
+{
+  "emotional_intensity": [
+    { "id": "calm", "name": "Calm", "value": 1 },
+    { "id": "steady", "name": "Steady", "value": 2 },
+    { "id": "earnest", "name": "Earnest", "value": 3 },
+    { "id": "tense", "name": "Tense", "value": 4 },
+    { "id": "dramatic", "name": "Dramatic", "value": 5 }
+  ],
+  "spiritual_focus": [
+    { "id": "subtle", "name": "Subtle", "value": 1 },
+    { "id": "quiet", "name": "Quiet", "value": 2 },
+    { "id": "clear", "name": "Clear", "value": 3 },
+    { "id": "direct", "name": "Direct", "value": 4 },
+    { "id": "explicit", "name": "Explicit", "value": 5 }
+  ]
+}

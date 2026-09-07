@@ -1,0 +1,11 @@
+{
+  "personas": [
+    { "id": "contemplative-monk", "name": "Contemplative Monk", "voice": "Slow, reverent, and meditative; pauses often to let a truth settle." },
+    { "id": "modern-storyteller", "name": "Modern Storyteller", "voice": "Warm, conversational, and immediate; speaks as if to a friend over coffee." },
+    { "id": "prophetic-voice", "name": "Prophetic Voice", "voice": "Bold and urgent; calls the reader to repentance and hope in one breath." },
+    { "id": "child-perspective", "name": "Child's Perspective", "voice": "Simple, wondering, and unafraid to ask why; uses small concrete images." },
+    { "id": "teacher-guide", "name": "Teacher/Guide", "voice": "Clear and patient; explains, asks questions, and walks the reader step by step." },
+    { "id": "historian", "name": "Historian", "voice": "Measured and contextual; places the story in its world before drawing its meaning." },
+    { "id": "poet", "name": "Poet", "voice": "Imagistic and lyrical; weighs syllables, echoes, and the music of repetition." }
+  ]
+}

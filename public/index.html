@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bible-Bridge</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <div id="app">
+    <!-- ===== Top: Carousel + Time Selector ===== -->
+    <header class="topbar">
+      <div class="carousel" id="carousel" aria-label="Story and theme carousel"></div>
+      <div class="time-selector" id="timeSelector">
+        <div class="era-labels">
+          <span data-era="0">Ancient</span>
+          <span data-era="1">Kings</span>
+          <span data-era="2">1900s</span>
+          <span data-era="3">Modern</span>
+          <span data-era="4">Future</span>
+        </div>
+        <input type="range" id="eraSlider" min="0" max="40" step="1" value="0" />
+        <div class="era-value" id="eraValue">Ancient</div>
+      </div>
+    </header>
+
+    <!-- ===== Main layout ===== -->
+    <main class="layout">
+      <!-- Left panel: selectors -->
+      <aside class="left-panel" id="leftPanel">
+        <div class="panel-header">
+          <h2>Selectors</h2>
+          <button id="collapseLeft" class="icon-btn" title="Collapse">◀</button>
+        </div>
+        <div class="panel-body"></div>
+      </aside>
+
+      <!-- Center: prompt/chat -->
+      <section class="center-panel">
+        <div class="chat">
+          <div class="chat-messages" id="chatMessages">
+            <div class="msg bot">Choose a story, theme, and tone in the left panel, then send a retelling request.</div>
+          </div>
+          <form class="chat-input" id="chatForm">
+            <textarea id="userPrompt" placeholder="Type an instruction for the retelling…" rows="2"></textarea>
+            <button type="submit">Retell</button>
+          </form>
+        </div>
+      </section>
+
+      <!-- Right: retelling output -->
+      <aside class="output-panel" id="outputPanel">
+        <div class="panel-header">
+          <h2>Retelling</h2>
+          <div class="header-actions">
+            <button id="replayBtn" class="icon-btn" title="Creative Replay">↻</button>
+            <button id="dockBtn" class="icon-btn" title="Dock">⧉</button>
+            <button id="readingToggle" class="icon-btn" title="Reading View">📖</button>
+            <button id="collapseRight" class="icon-btn" title="Collapse">▶</button>
+          </div>
+        </div>
+        <div class="output-controls">
+          <label>Size <input type="range" id="fontSize" min="12" max="32" value="16" /></label>
+          <label>Color <input type="color" id="fontColor" value="#1a1a1a" /></label>
+          <label>Background <input type="color" id="bgColor" value="#faf7f2" /></label>
+          <label>Spacing <input type="range" id="lineSpacing" min="1" max="3" step="0.1" value="1.5" /></label>
+          <label>Font
+            <select id="typeface">
+              <option value="system-ui">System</option>
+              <option value="Georgia, serif">Serif</option>
+              <option value="Arial, sans-serif">Sans</option>
+              <option value="monospace">Mono</option>
+            </select>
+          </label>
+        </div>
+        <div class="output-body" id="outputBody">
+          <div class="output-placeholder">Your retelling will appear here.</div>
+        </div>
+      </aside>
+    </main>
+
+    <!-- ===== Feedback panel ===== -->
+    <footer class="feedback-panel" id="feedbackPanel">
+      <div class="feedback-title">Retelling Feedback</div>
+      <div class="feedback-columns">
+        <div class="feedback-col"><h3>Original Story</h3><div id="originalMeta"></div></div>
+        <div class="feedback-col"><h3>Retelling Metadata</h3><div id="retellingMeta"></div></div>
+      </div>
+    </footer>
+  </div>
+
+  <script type="module" src="/app.js"></script>
+</body>
+</html>

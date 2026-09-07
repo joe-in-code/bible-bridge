@@ -1,0 +1,16 @@
+{
+  "roles": [
+    { "id": "prophet", "name": "Prophet", "description": "Speaks God's word with authority and warning." },
+    { "id": "king", "name": "King / Queen", "description": "Rules, judges, and bears the weight of a people's fate." },
+    { "id": "priest", "name": "Priest", "description": "Offers prayer, sacrifice, and mediation between God and people." },
+    { "id": "shepherd", "name": "Shepherd", "description": "Leads, protects, and knows each one by name." },
+    { "id": "wanderer", "name": "Wanderer", "description": "Exiled, traveling, and carrying hope across unfamiliar lands." },
+    { "id": "witness", "name": "Witness", "description": "Sees and testifies; refuses to stay silent." },
+    { "id": "saint", "name": "Saint / Believer", "description": "Ordinary faith that endures suffering and waits for resurrection." },
+    { "id": "outcast", "name": "Outcast", "description": "Rejected by the world, welcomed by God." },
+    { "id": "child", "name": "Child", "description": "Simple obedience, trust, and wonder." },
+    { "id": "teacher", "name": "Teacher", "description": "Explains the law, parable, and the deeper meaning." },
+    { "id": "judge", "name": "Judge", "description": "Weighs causes, pronounces verdicts, and laments what justice costs." },
+    { "id": "angel", "name": "Messenger / Angel", "description": "Delivers word, warning, and impossible promise." }
+  ]
+}

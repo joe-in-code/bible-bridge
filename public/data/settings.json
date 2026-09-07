@@ -1,0 +1,14 @@
+{
+  "settings": [
+    { "id": "desert", "name": "Desert", "description": "Sun-baked wilderness, wandering, and quiet revelation." },
+    { "id": "mountain", "name": "Mountain", "description": "High places of vision, command, and divine presence." },
+    { "id": "city", "name": "City", "description": "Streets, markets, and crowded lives where kingdom breaks through." },
+    { "id": "shore", "name": "Shore", "description": "Waves, boats, and the edge of land meeting restless water." },
+    { "id": "home", "name": "Home", "description": "Table, hearth, and ordinary relationships shaped by faith." },
+    { "id": "court", "name": "Court", "description": "Thrones, judgments, and the weight of royal authority." },
+    { "id": "field", "name": "Field", "description": "Soil, seed, harvest, and the patient rhythms of labor." },
+    { "id": "prison", "name": "Prison", "description": "Darks cells where hope persists and angels still appear." },
+    { "id": "temple", "name": "Temple", "description": "Courts of sacrifice, prayer, and the glory filling the house." },
+    { "id": "caravan", "name": "Caravan", "description": "Long roads, trade routes, and strangers who become angels unawares." }
+  ]
+}

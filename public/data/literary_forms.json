@@ -1,0 +1,15 @@
+{
+  "forms": [
+    { "id": "short-story", "name": "Short Story", "description": "A single scene or arc, focused and complete." },
+    { "id": "parable", "name": "Parable", "description": "A earthly story with a heavenly point, brief and pointed." },
+    { "id": "poem", "name": "Poem", "description": "Rhythm, image, and line break carry the meaning." },
+    { "id": "allegory", "name": "Allegory", "description": "Every detail stands for something else, layer upon layer." },
+    { "id": "dialogue", "name": "Dialogue", "description": "The story is carried by what characters say to one another." },
+    { "id": "epic-narrative", "name": "Epic Narrative", "description": "Wide in scope, long in breath, spanning generations." },
+    { "id": "modern-reflection", "name": "Modern Reflection", "description": "A first-person meditation on the text through a contemporary lens." },
+    { "id": "children-story", "name": "Children's Story", "description": "Short sentences, bright pictures, and a clear moral shape." },
+    { "id": "dramatic-monologue", "name": "Dramatic Monologue", "description": "One voice, alone, revealing itself in the telling." },
+    { "id": "devotional", "name": "Devotional", "description": "A short meditation meant for daily reading and prayer." },
+    { "id": "sermon-outline", "name": "Sermon Outline", "description": "Structured points and illustrations for a gathered congregation." }
+  ]
+}

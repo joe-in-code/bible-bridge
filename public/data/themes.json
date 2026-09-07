@@ -1,0 +1,16 @@
+{
+  "themes": [
+    { "id": "redemption", "name": "Redemption", "description": "Sin forgiven and life restored through grace." },
+    { "id": "covenant", "name": "Covenant", "description": "Faithful promises binding God and people across generations." },
+    { "id": "justice", "name": "Justice", "description": "God's concern for the poor, the stranger, and the oppressed." },
+    { "id": "wisdom", "name": "Wisdom", "description": "Fear of the Lord as the beginning of understanding and skillful living." },
+    { "id": "faith", "name": "Faith", "description": "Trusting God's unseen promises when the visible path is dark." },
+    { "id": "sacrifice", "name": "Sacrifice", "description": "Giving up what is dear so another may live." },
+    { "id": "providence", "name": "Providence", "description": "God's hidden ordering of every human story toward good." },
+    { "id": "hope", "name": "Hope", "description": "A future beyond present sorrow, anchored in resurrection." },
+    { "id": "love", "name": "Love", "description": "Chesed: steadfast kindness that does not give up." },
+    { "id": "repentance", "name": "Repentance", "description": "Turning away from idols and walking in the way of life." },
+    { "id": "creation", "name": "Creation", "description": "The goodness of the world and its ongoing making by the Creator." },
+    { "id": "eschaton", "name": "Eschaton", "description": "The end of sorrow and the coming of the kingdom of God." }
+  ]
+}
