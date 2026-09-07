@@ -1,0 +1,16 @@
+{
+  "anchors": [
+    { "id": "evangelical", "name": "Evangelical", "description": "Emphasizes conversion, biblical authority, and the necessity of a personal relationship with Christ." },
+    { "id": "catholic", "name": "Catholic", "description": "Emphasizes sacraments, apostolic succession, the magisterium, and the communion of saints." },
+    { "id": "orthodox", "name": "Orthodox", "description": "Emphasizes theosis, liturgical tradition, the consensus of the fathers, and icons." },
+    { "id": "anglican", "name": "Anglican", "description": "Balances scripture, tradition, and reason within a prayer-formed life." },
+    { "id": "mainline-protestant", "name": "Mainline Protestant", "description": "Emphasizes social justice, theological scholarship, and ecumenical cooperation." },
+    { "id": "baptist", "name": "Baptist", "description": "Emphasizes believer's baptism, congregational autonomy, and the authority of scripture." },
+    { "id": "pentecostal", "name": "Pentecostal", "description": "Emphasizes the baptism of the Holy Spirit, gifts of the Spirit, and a vibrant worship life." },
+    { "id": "reformed", "name": "Reformed", "description": "Emphasizes the sovereignty of God, the primacy of grace, and the regulative principle of worship." },
+    { "id": "methodist", "name": "Methodist", "description": "Emphasizes holiness, social action, and the pursuit of perfect love." },
+    { "id": "non-denominational", "name": "Non-Denominational", "description": "Emphasizes the core gospel without institutional baggage, often contemporary in style." },
+    { "id": "presbyterian", "name": "Presbyterian", "description": "Emphasizes representative eldership and the subordinate standard of the Westminster Confession." },
+    { "id": "lutheran", "name": "Lutheran", "description": "Emphasizes justification by faith alone, the sacraments, and the Book of Concord." }
+  ]
+}

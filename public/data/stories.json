@@ -1,0 +1,26 @@
+{
+  "stories": [
+    { "id": "genesis-creation", "book": "Genesis", "reference": "1:1-2:3", "title": "Creation of the Heavens and Earth", "summary": "God speaks light, sky, land, sea, plants, sun, moon, birds, fish, animals, and humankind into being over six days and rests on the seventh." },
+    { "id": "genesis-fall", "book": "Genesis", "reference": "3:1-24", "title": "The Fall", "summary": "The serpent tempts Eve and Adam to eat from the tree of knowledge; they are cast out of Eden and guarded by cherubim." },
+    { "id": "genesis-abel", "book": "Genesis", "reference": "4:1-16", "title": "Cain and Abel", "summary": "Two brothers offer gifts; the Lord favors Abel's, envies Cain's, and Cain slays his brother in the field." },
+    { "id": "genesis-noah", "book": "Genesis", "reference": "6:5-9:19", "title": "Noah and the Flood", "summary": "Noah builds an ark at God's command, saves his family and pairs of every creature, and is blessed after the waters recede." },
+    { "id": "genesis-abraham", "book": "Genesis", "reference": "12:1-9", "title": "Abraham's Call", "summary": "God promises Abram land, descendants, and blessing; he journeys to Canaan and pitches tents at Shechem, Bethel, and Ai." },
+    { "id": "genesis-sodom", "book": "Genesis", "reference": "18:1-33", "title": "Abraham Intercedes for Sodom", "summary": "Abraham bargains with God to spare the city if righteous ones are found within it." },
+    { "id": "genesis-joseph", "book": "Genesis", "reference": "37:1-50:26", "title": "Joseph's Rise and Reconciliation", "summary": "A favored son is sold into slavery, rises to rule Egypt during famine, and forgives his brothers who once betrayed him." },
+    { "id": "exodus", "book": "Exodus", "reference": "1:1-15:21", "title": "Exodus from Egypt", "summary": "Moses leads Israel out of bondage through ten plagues, a sea that swallows Pharaoh's army, and a pillar of cloud and fire." },
+    { "id": "exodus-law", "book": "Exodus", "reference": "19:1-20:17", "title": "The Ten Commandments", "summary": "God speaks ten words of law to Moses at Sinai, carved on stone tablets for all the people." },
+    { "id": "deuteronomy-love", "book": "Deuteronomy", "reference": "6:4-9", "title": "Shema: Love the Lord", "summary": "Moses calls Israel to love the Lord with all heart, soul, and strength, and to teach these words to their children." },
+    { "id": "ruth", "book": "Ruth", "reference": "1:1-4:22", "title": "Ruth's Devotion", "summary": "A Moabite widow clings to Naomi's God, gleans in the fields of Boaz, and becomes an ancestor of David." },
+    { "id": "david-goliath", "book": "1 Samuel", "reference": "17:1-58", "title": "David and Goliath", "summary": "A young shepherd strikes down the Philistine giant with a single stone and a sling." },
+    { "id": "david-psalm", "book": "Psalms", "reference": "23:1-6", "title": "The Lord Is My Shepherd", "summary": "A psalm of trust in God's green pastures, still waters, and eternal house." },
+    { "id": "isaiah-servant", "book": "Isaiah", "reference": "42:1-9", "title": "The Servant's Song", "summary": "A prophetic vision of a gentle servant who brings justice without breaking a bruised reed." },
+    { "id": "jesus-baptism", "book": "Matthew", "reference": "3:13-17", "title": "The Baptism of Jesus", "summary": "John baptizes Jesus in the Jordan; the heavens open and the Spirit descends like a dove." },
+    { "id": "jesus-parable", "book": "Matthew", "reference": "13:44-46", "title": "Parables of the Kingdom", "summary": "Jesus tells of a pearl of great price and a hidden treasure worth selling everything to obtain." },
+    { "id": "jesus-good-samaritan", "book": "Luke", "reference": "10:25-37", "title": "The Good Samaritan", "summary": "A wounded man is rescued by a despised neighbor, teaching that love of neighbor has no borders." },
+    { "id": "jesus-loaves", "book": "John", "reference": "6:1-14", "title": "Feeding the Five Thousand", "summary": "Jesus multiplies five loaves and two fish to feed a vast crowd in a desert place." },
+    { "id": "jesus-cross", "book": "John", "reference": "19:1-42", "title": "The Crucifixion", "summary": "Jesus is lifted up on a wooden beam; darkness falls, a spear flows with blood and water, and a tomb is sealed." },
+    { "id": "jesus-resurrection", "book": "John", "reference": "20:1-18", "title": "The Resurrection", "summary": "Mary finds the tomb empty and meets the risen Lord, who breathes peace on his frightened friends." },
+    { "id": "paul-vision", "book": "Acts", "reference": "9:1-19", "title": "Paul's Conversion", "summary": "A persecutor of the way is struck blind on the road to Damascus and becomes an apostle to the nations." },
+    { "id": "rev-new-creation", "book": "Revelation", "reference": "21:1-4", "title": "A New Heaven and a New Earth", "summary": "John sees a holy city descending, where God wipes away every tear and death is no more." }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "symbols": [
+    { "id": "water", "name": "Water", "meaning": "Life, cleansing, and the restless sea of the heart." },
+    { "id": "bread", "name": "Bread", "meaning": "Sustenance, the daily gift, and the bread of life." },
+    { "id": "light", "name": "Light", "meaning": "Revelation, clarity, and the darkness that cannot overcome it." },
+    { "id": "seed", "name": "Seed", "meaning": "Small faith that grows into an enormous harvest." },
+    { "id": "stone", "name": "Stone", "meaning": "Rejection, stumbling, and the cornerstone of the new building." },
+    { "id": "fire", "name": "Fire", "meaning": "Purifying presence, judgment, and the Spirit's burning." },
+    { "id": "wound", "name": "Wound", "meaning": "Brokenness that becomes a place of revelation." },
+    { "id": "garden", "name": "Garden", "meaning": "Creation's first home and the place of new beginning." },
+    { "id": "book", "name": "Book", "meaning": "The sealed scroll, the word written, and the opened scroll." },
+    { "id": "mountain", "name": "Mountain", "meaning": "The high place of vision and the weight of glory." },
+    { "id": "cross-beam", "name": "Cross-Beam", "meaning": "The wood that holds both death and the tree of life." },
+    { "id": "dove", "name": "Dove", "meaning": "Peace, the hovering Spirit, and an end to judgment." }
+  ]
+}
