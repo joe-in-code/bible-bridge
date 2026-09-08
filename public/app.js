@@ -8,7 +8,7 @@ import { renderLeftPanel, bindLeftPanel } from "./components/leftPanel.js";
 import { bindChat } from "./components/chat.js";
 import { bindOutputPanel } from "./components/outputPanel.js";
 import { bindFeedback } from "./components/feedback.js";
-import { bindTimeSelector } from "./components/timeSelector.js";
+import { bindTimeSelector, update as updateTimeSelector } from "./components/timeSelector.js";
 
 const DATA_URL = "/api/data";
 const RETELL_URL = "/api/retell";
@@ -68,7 +68,7 @@ function applyPersonaPreset(id) {
 
 function applyTimeSnapshot(era) {
   metadata.era = era;
-  bindTimeSelector.update();
+  updateTimeSelector();
   refreshAll();
 }
 
@@ -88,6 +88,7 @@ function refreshAll() {
 // ---------------------------------------------------------------------------
 async function init() {
   await loadData();
+  window.__bibleBridge.DATA = DATA;
   renderCarousel();
   bindCarousel();
   renderLeftPanel();
