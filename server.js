@@ -134,6 +134,21 @@ function getOpenAI() {
   return new OpenAI({ apiKey: key });
 }
 
+function extractText(message) {
+  if (!message) return "";
+  if (typeof message.content === "string") return message.content.trim();
+  if (Array.isArray(message.content)) {
+    return message.content
+      .filter((block) => block.type === "text")
+      .map((block) => (block.text || "").trim())
+      .join("\n");
+  }
+  if (message.tool_calls) {
+    return "[Tool call returned, no text content]";
+  }
+  return "";
+}
+
 async function generateRetelling(prompt) {
   const client = getOpenAI();
   if (!client) {
@@ -152,7 +167,7 @@ async function generateRetelling(prompt) {
     temperature: 0.8,
     max_tokens: 2048,
   });
-  return { text: completion.choices[0].message.content.trim(), model };
+  return { text: extractText(completion.choices[0].message), model };
 }
 
 // ---------------------------------------------------------------------------
