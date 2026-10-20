@@ -15,7 +15,12 @@ app.use(express.static(join(__dirname, "public")));
 // Static data
 // ---------------------------------------------------------------------------
 function load(name) {
-  return JSON.parse(readFileSync(join(__dirname, "public", "data", name), "utf8"));
+  try {
+    return JSON.parse(readFileSync(join(__dirname, "public", "data", name), "utf8"));
+} catch (err) {
+    console.error(`Error loading ${name}:`, err);
+    return {};
+}
 }
 
 const data = {
