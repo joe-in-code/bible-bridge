@@ -17,7 +17,11 @@ let DATA = null;
 let metadata = buildMetadata();
 
 async function loadData() {
+  try {
   const res = await fetch(DATA_URL);
+  if (!res.ok) {
+    throw new Error("Failed to load data");
+  }
   if (!res.ok) throw new Error("Failed to load data");
   DATA = await res.json();
 }
@@ -76,7 +80,7 @@ function applyTimeSnapshot(era) {
 // Render / refresh
 // ---------------------------------------------------------------------------
 function refreshAll() {
-  renderLeftPanel();
+  renderLeftPanel().catch(err => console.error(`Error rendering left panel: ${err.message}`));
   bindLeftPanel();
   bindCarousel();
   bindFeedback.render();
@@ -87,11 +91,11 @@ function refreshAll() {
 // Init
 // ---------------------------------------------------------------------------
 async function init() {
-  await loadData();
+  await loadData().catch(err => console.error(`Error loading data: ${err.message}`));
   window.__bibleBridge.DATA = DATA;
   renderCarousel();
   bindCarousel();
-  renderLeftPanel();
+  renderLeftPanel().catch(err => console.error(`Error rendering left panel: ${err.message}`));
   bindLeftPanel();
   bindChat();
   bindOutputPanel();
@@ -102,7 +106,7 @@ async function init() {
 init().catch((err) => {
   console.error(err);
   document.getElementById("chatMessages").innerHTML =
-    `<div class="msg bot">Failed to load app data: ${err.message}</div>`;
+    `<div class="msg bot">Failed to load app data. Please refresh your page or try again later.</div>`;
 });
 
 // Expose helpers used by components
