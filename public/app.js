@@ -23,7 +23,7 @@ async function loadData() {
     throw new Error("Failed to load data");
   }
   if (!res.ok) throw new Error("Failed to load data");
-  DATA = await res.json();
+  console.log(`Fetched data: ${JSON.stringify(DATA, null, 2)}`);
 }
 
 function get(path, fallback) {
