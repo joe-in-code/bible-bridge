@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Bible-Bridge</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='13' font-size='13'%3E%F0%9F%93%96%3C/text%3E%3C/svg%3E" />
   <link rel="stylesheet" href="/styles.css" />
 </head>
 <body>
@@ -11,26 +12,26 @@
     <!-- ===== Top: Carousel + Time Selector ===== -->
     <header class="topbar">
       <div class="carousel" id="carousel" aria-label="Story and theme carousel"></div>
+      <div class="popover" id="carouselPopover" hidden></div>
       <div class="time-selector" id="timeSelector">
-        <div class="era-labels">
-          <span data-era="0">Ancient</span>
-          <span data-era="1">Kings</span>
-          <span data-era="2">1900s</span>
-          <span data-era="3">Modern</span>
-          <span data-era="4">Future</span>
+        <div class="era-track">
+          <div class="era-labels" id="eraLabels"></div>
+          <input type="range" id="eraSlider" min="0" max="40" step="1" value="0" list="eraTicks" aria-label="Time period" />
+          <datalist id="eraTicks">
+            <option value="0"></option><option value="10"></option><option value="20"></option><option value="30"></option><option value="40"></option>
+          </datalist>
         </div>
-        <input type="range" id="eraSlider" min="0" max="40" step="1" value="0" />
         <div class="era-value" id="eraValue">Ancient</div>
       </div>
     </header>
 
     <!-- ===== Main layout ===== -->
-    <main class="layout">
+    <main class="layout dock-right" id="layout">
       <!-- Left panel: selectors -->
       <aside class="left-panel" id="leftPanel">
         <div class="panel-header">
           <h2>Selectors</h2>
-          <button id="collapseLeft" class="icon-btn" title="Collapse">◀</button>
+          <button id="collapseLeft" class="icon-btn" title="Collapse" aria-label="Collapse selectors">◀</button>
         </div>
         <div class="panel-body"></div>
       </aside>
@@ -41,8 +42,9 @@
           <div class="chat-messages" id="chatMessages">
             <div class="msg bot">Choose a story, theme, and tone in the left panel, then send a retelling request.</div>
           </div>
+          <div class="suggestions" id="suggestions"></div>
           <form class="chat-input" id="chatForm">
-            <textarea id="userPrompt" placeholder="Type an instruction for the retelling…" rows="2"></textarea>
+            <textarea id="userPrompt" placeholder="Type an instruction for the retelling… (Enter to send, Shift+Enter for a new line)" rows="2" maxlength="2000"></textarea>
             <button type="submit">Retell</button>
           </form>
         </div>
@@ -50,13 +52,14 @@
 
       <!-- Right: retelling output -->
       <aside class="output-panel" id="outputPanel">
+        <div class="resize-handle" id="resizeHandle" role="separator" aria-label="Resize retelling panel"></div>
         <div class="panel-header">
           <h2>Retelling</h2>
           <div class="header-actions">
-            <button id="replayBtn" class="icon-btn" title="Creative Replay">↻</button>
-            <button id="dockBtn" class="icon-btn" title="Dock">⧉</button>
-            <button id="readingToggle" class="icon-btn" title="Reading View">📖</button>
-            <button id="collapseRight" class="icon-btn" title="Collapse">▶</button>
+            <button id="replayBtn" class="icon-btn" title="Creative Replay" aria-label="Creative replay" disabled>↻</button>
+            <button id="dockBtn" class="icon-btn" title="Dock" aria-label="Change dock position">⧉</button>
+            <button id="readingToggle" class="icon-btn" title="Reading View" aria-label="Toggle reading view">📖</button>
+            <button id="collapseRight" class="icon-btn" title="Collapse" aria-label="Collapse retelling">▶</button>
           </div>
         </div>
         <div class="output-controls">
@@ -73,9 +76,7 @@
             </select>
           </label>
         </div>
-        <div class="output-body" id="outputBody">
-          <div class="output-placeholder">Your retelling will appear here.</div>
-        </div>
+        <div class="output-body" id="outputBody"></div>
       </aside>
     </main>
 

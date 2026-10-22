@@ -4,11 +4,20 @@ Bible-Bridge is a guided biblical-retelling environment that allows users to cre
 
 ## Run
 
-```bash
+Requires Node 22.9+.
+
+```powershell
 npm install
-npm start            # http://localhost:3000
-OPENAI_API_KEY=sk-... npm start   # enables AI retelling generation
+npm run dev          # http://localhost:3000 (auto-restarts on server changes)
+npm test             # unit + API smoke tests
 ```
+
+To enable AI generation, copy `.env.example` to `.env` and set either `OPENAI_API_KEY` (OpenAI directly) or `OPENROUTER_API_KEY` (via [OpenRouter](https://openrouter.ai/)). With OpenRouter and no `OPENAI_MODEL` set, requests use OpenRouter's [Auto Router](https://openrouter.ai/docs/guides/routing/routers/auto-router) (`openrouter/auto`), which picks a model per request from live community usage — no model name is hardcoded in the app. Tune it with `OPENROUTER_COST_TIER` (`low`/`medium`/`high`/`xhigh`/`max`), or set `OPENAI_MODEL` to a `provider/model` id (e.g. `anthropic/claude-sonnet-4.5`) to pin an exact model instead. Each response's `model` field reports which model actually answered, and shows up as the model name in the chat log.
+Or for one session in PowerShell: `$env:OPENAI_API_KEY="sk-..."; npm start`.
+Without a key, retellings return a clearly labelled placeholder.
+
+Scripture text (WEB, public domain) lives in `public/data/passages.json` and is included in each prompt.
+Regenerate it after editing `stories.json` with `npm run fetch-passages` (needs network; long stories use the `excerpt` field).
 
 ## ASCII Wireframe
 
@@ -56,7 +65,7 @@ OPENAI_API_KEY=sk-... npm start   # enables AI retelling generation
 
 ## Architecture
 
-- **Frontend** (`public/`): vanilla JS modules in `components/`. A single `metadata` object is the source of truth; every selector updates it.
-- **Backend** (`server.js`): Express server. `POST /retell` formats metadata into a structured prompt and calls OpenAI. `GET /api/data` serves the bundled JSON.
+- **Frontend** (`public/`): vanilla JS modules in `components/`. `state.js` is a small store holding the single `metadata` object; every selector updates it and components subscribe to changes. `constants.js` is shared with the server.
+- **Backend** (`server.js`, `lib/`): Express server. `POST /api/retell` validates metadata (`lib/validate.js`), formats it into a structured prompt with the source passage (`lib/prompt.js`), and calls OpenAI. `GET /api/data` serves the bundled JSON.
 - **AI Layer**: OpenAI Chat Completions API. The frontend only displays the returned text.
-- **Local static data** (`public/data/`): `bible.json`, `stories.json`, `themes.json`, `settings.json`, `personas.json`, `literary_forms.json`, `tone_matrix.json`, `symbols.json`, `anchors.json`, `character_roles.json`.
+- **Local static data** (`public/data/`): `passages.json`, `stories.json`, `themes.json`, `settings.json`, `personas.json`, `literary_forms.json`, `tone_matrix.json`, `symbols.json`, `anchors.json`, `character_roles.json`.

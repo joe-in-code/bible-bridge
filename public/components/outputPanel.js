@@ -1,163 +1,89 @@
-// Retelling output panel — dockable, resizable, with reading view and styling controls.
+// Retelling output panel: renders the latest retelling, styling controls
+// (persisted), and Creative Replay.
 
-let dockPosition = "right"; // right | bottom | left
-let isReadingView = false;
+import { getRetelling, subscribe, isBusy } from "../state.js";
+import { runRetelling } from "./chat.js";
 
-export function bindOutputPanel() {
-  const bridge = window.__bibleBridge;
-  bridge.outputBody = document.getElementById("outputBody");
+const STYLE_KEY = "bb.style";
+const REPLAY_NOTE = "Creative replay: tell it again with fresh phrasing and imagery, avoiding the previous wording.";
+
+export function mountOutputPanel() {
   const panel = document.getElementById("outputPanel");
-  const layout = document.querySelector(".layout");
-  const root = document.getElementById("app");
+  const body = document.getElementById("outputBody");
   const replayBtn = document.getElementById("replayBtn");
-  const dockBtn = document.getElementById("dockBtn");
-  const readingToggle = document.getElementById("readingToggle");
-  const collapseRight = document.getElementById("collapseRight");
-  const fontSize = document.getElementById("fontSize");
-  const fontColor = document.getElementById("fontColor");
-  const bgColor = document.getElementById("bgColor");
-  const lineSpacing = document.getElementById("lineSpacing");
-  const typeface = document.getElementById("typeface");
-
-  // Expose the output body for the chat component.
-  window.__bibleBridge.outputBody = bridge.outputBody;
+  const ctl = {
+    fontSize: document.getElementById("fontSize"),
+    fontColor: document.getElementById("fontColor"),
+    bgColor: document.getElementById("bgColor"),
+    lineSpacing: document.getElementById("lineSpacing"),
+    typeface: document.getElementById("typeface"),
+  };
 
   function applyStyling() {
-    const body = bridge.outputBody;
-    body.style.fontSize = fontSize.value + "px";
-    body.style.color = fontColor.value;
-    body.style.lineSpacing = lineSpacing.value;
-    body.style.fontFamily = typeface.value;
-    const panelEl = document.querySelector(".output-panel");
-    if (panelEl) panelEl.style.background = bgColor.value;
-    root.style.background = bgColor.value;
+    body.style.fontSize = ctl.fontSize.value + "px";
+    body.style.color = ctl.fontColor.value;
+    body.style.lineHeight = ctl.lineSpacing.value;
+    body.style.fontFamily = ctl.typeface.value;
+    body.style.background = ctl.bgColor.value;
+    panel.style.background = ctl.bgColor.value;
   }
 
-  fontSize.addEventListener("input", applyStyling);
-  fontColor.addEventListener("input", applyStyling);
-  bgColor.addEventListener("input", applyStyling);
-  lineSpacing.addEventListener("input", applyStyling);
-  typeface.addEventListener("change", applyStyling);
+  function saveStyle() {
+    try {
+      localStorage.setItem(STYLE_KEY, JSON.stringify(Object.fromEntries(Object.entries(ctl).map(([k, el]) => [k, el.value]))));
+    } catch { /* ignore */ }
+  }
+
+  try {
+    const saved = JSON.parse(localStorage.getItem(STYLE_KEY) || "null");
+    if (saved) for (const [k, el] of Object.entries(ctl)) if (saved[k]) el.value = saved[k];
+  } catch { /* ignore */ }
   applyStyling();
 
-  function toggleReadingView() {
-    isReadingView = !isReadingView;
-    root.classList.toggle("reading-view", isReadingView);
-    readingToggle.textContent = isReadingView ? "Exit Reading" : "📖";
-    readingToggle.title = isReadingView ? "Exit Reading View" : "Reading View";
-  }
-  readingToggle.addEventListener("click", toggleReadingView);
-
-  function cycleDock() {
-    const order = ["right", "bottom", "left"];
-    dockPosition = order[(order.indexOf(dockPosition) + 1) % order.length];
-    applyDock();
-  }
-  dockBtn.addEventListener("click", cycleDock);
-
-  function applyDock() {
-    layout.classList.remove("dock-right", "dock-bottom", "dock-left");
-    layout.classList.add("dock-" + dockPosition);
-    dockBtn.title = `Dock: ${dockPosition} (click to cycle)`;
-  }
-  applyDock();
-
-  // Resizable border — drag the left edge of the output panel when docked right/left.
-  let dragging = false;
-  panel.addEventListener("mousedown", (e) => {
-    if (dockPosition === "bottom") return;
-    if (e.offsetX > 8) return; // only the left edge
-    dragging = true;
-    document.body.style.cursor = "ew-resize";
-    document.body.style.userSelect = "none";
-    e.preventDefault();
+  Object.values(ctl).forEach((el) => {
+    el.addEventListener("input", () => { applyStyling(); saveStyle(); });
+    el.addEventListener("change", () => { applyStyling(); saveStyle(); });
   });
-  document.addEventListener("mousemove", (e) => {
-    if (!dragging) return;
-    const rect = layout.getBoundingClientRect();
-    let w;
-    if (dockPosition === "right") {
-      w = rect.right - e.clientX;
+
+  function renderRetelling() {
+    const r = getRetelling();
+    body.textContent = "";
+    if (!r) {
+      const p = document.createElement("div");
+      p.className = "output-placeholder";
+      p.textContent = "Your retelling will appear here.";
+      body.appendChild(p);
     } else {
-      w = e.clientX - rect.left;
+      if (r.placeholder) {
+        const warn = document.createElement("div");
+        warn.className = "output-warning";
+        warn.textContent = "Placeholder only: no AI key is configured on the server.";
+        body.appendChild(warn);
+      }
+      const text = document.createElement("div");
+      text.className = "narrative";
+      text.textContent = r.text;
+      body.appendChild(text);
+      body.scrollTop = 0;
     }
-    w = Math.max(180, Math.min(600, w));
-    panel.style.width = w + "px";
-  });
-  document.addEventListener("mouseup", () => {
-    if (dragging) {
-      dragging = false;
-      document.body.style.cursor = "";
-      document.body.style.userSelect = "";
-    }
-  });
-
-  // Collapse / expand the panel.
-  let collapsed = false;
-  collapseRight.addEventListener("click", () => {
-    collapsed = !collapsed;
-    panel.classList.toggle("collapsed", collapsed);
-    collapseRight.textContent = collapsed ? "▶" : "◀";
-    collapseRight.title = collapsed ? "Expand" : "Collapse";
-  });
-
-  // Creative Replay — regenerate with a touch of variation.
-  replayBtn.addEventListener("click", async () => {
-    const bridge = window.__bibleBridge;
-    if (!bridge.outputBody.textContent.trim()) return;
-    const meta = { ...bridge.metadata };
-    // Introduce a small variation so the model produces a different telling.
-    meta.userPrompt = (meta.userPrompt || "Regenerate with variation.") + " (creative replay: vary the phrasing.)";
-    try {
-      const res = await fetch(bridge.RETELL_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(meta),
-      });
-      if (!res.ok) throw new Error("Replay failed");
-      const data = await res.json();
-      bridge.outputBody.textContent = data.text;
-      bridge.outputBody.classList.remove("output-placeholder");
-      bridge.outputBody.classList.add("narrative");
-    } catch (err) {
-      console.error(err);
-    }
-  });
-
-  // Persist styling to localStorage so it survives reloads.
-  function saveStyle() {
-    localStorage.setItem("bb.style", JSON.stringify({
-      fontSize: fontSize.value, fontColor: fontColor.value,
-      bgColor: bgColor.value, lineSpacing: lineSpacing.value, typeface: typeface.value,
-    }));
+    updateReplay();
   }
-  [fontSize, fontColor, bgColor, lineSpacing, typeface].forEach((el) => el.addEventListener("change", saveStyle));
-  // Restore on next load.
-  try {
-    const saved = JSON.parse(localStorage.getItem("bb.style") || "null");
-    if (saved) {
-      if (saved.fontSize) fontSize.value = saved.fontSize;
-      if (saved.fontColor) fontColor.value = saved.fontColor;
-      if (saved.bgColor) bgColor.value = saved.bgColor;
-      if (saved.lineSpacing) lineSpacing.value = saved.lineSpacing;
-      if (saved.typeface) typeface.value = saved.typeface;
-      applyStyling();
-    }
-  } catch (_) { /* ignore */ }
 
-  // Persist dock position.
-  try {
-    const savedDock = localStorage.getItem("bb.dock");
-    if (savedDock) {
-      dockPosition = savedDock;
-      applyDock();
-    }
-  } catch (_) { /* ignore */ }
-  dockBtn.addEventListener("click", () => {
-    try { localStorage.setItem("bb.dock", dockPosition); } catch (_) { /* ignore */ }
+  function updateReplay() {
+    const r = getRetelling();
+    replayBtn.disabled = !r || r.placeholder || isBusy();
+  }
+
+  replayBtn.addEventListener("click", () => {
+    const r = getRetelling();
+    if (!r || isBusy()) return;
+    const send = { ...r.metadata, userPrompt: [r.metadata.userPrompt, REPLAY_NOTE].filter(Boolean).join("\n") };
+    runRetelling(send, r.metadata);
   });
-}
 
-export function updateControls() {
-  // Placeholder — controls are bound once at init.
+  subscribe((ev) => {
+    if (ev.type === "retelling") renderRetelling();
+    if (ev.type === "busy") updateReplay();
+  });
+  renderRetelling();
 }

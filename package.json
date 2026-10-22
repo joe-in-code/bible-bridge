@@ -5,8 +5,13 @@
   "type": "module",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
-    "dev": "node --watch server.js"
+    "start": "node --env-file-if-exists=.env server.js",
+    "dev": "node --env-file-if-exists=.env --watch server.js",
+    "test": "node --test \"test/*.test.js\"",
+    "fetch-passages": "node scripts/fetch-passages.mjs"
+  },
+  "engines": {
+    "node": ">=22.9"
   },
   "dependencies": {
     "express": "^4.19.2",
