@@ -3,25 +3,34 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Bible-Bridge</title>
+  <title>Bible-Bridge: Retell a Bible story</title>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='13' font-size='13'%3E%F0%9F%93%96%3C/text%3E%3C/svg%3E" />
   <link rel="stylesheet" href="/styles.css" />
 </head>
 <body>
   <div id="app">
+    <!-- ===== App header ===== -->
+    <header class="app-header">
+      <h1>Bible-Bridge</h1>
+      <p class="tagline">Choose a Bible story, shape how it's told, and receive a faithful retelling. Or skip the panel and just tell the chat what you want — type a story name or a reference like "John 3:16".</p>
+    </header>
+
     <!-- ===== Top: Carousel + Time Selector ===== -->
     <header class="topbar">
       <div class="carousel" id="carousel" aria-label="Story and theme carousel"></div>
       <div class="popover" id="carouselPopover" hidden></div>
       <div class="time-selector" id="timeSelector">
+        <label class="switch" title="Enable to set a time period">
+          <input type="checkbox" id="eraEnable" aria-label="Enable time period" />
+        </label>
         <div class="era-track">
           <div class="era-labels" id="eraLabels"></div>
-          <input type="range" id="eraSlider" min="0" max="40" step="1" value="0" list="eraTicks" aria-label="Time period" />
+          <input type="range" id="eraSlider" min="0" max="40" step="1" value="0" list="eraTicks" aria-label="Time period" disabled />
           <datalist id="eraTicks">
             <option value="0"></option><option value="10"></option><option value="20"></option><option value="30"></option><option value="40"></option>
           </datalist>
         </div>
-        <div class="era-value" id="eraValue">Ancient</div>
+        <div class="era-value" id="eraValue">Not set</div>
       </div>
     </header>
 
@@ -33,19 +42,28 @@
           <h2>Selectors</h2>
           <button id="collapseLeft" class="icon-btn" title="Collapse" aria-label="Collapse selectors">◀</button>
         </div>
+        <p class="panel-helper">Switch on only what you want to influence the story. Everything else stays up to the text.</p>
         <div class="panel-body"></div>
       </aside>
 
       <!-- Center: prompt/chat -->
       <section class="center-panel">
         <div class="chat">
-          <div class="chat-messages" id="chatMessages">
-            <div class="msg bot">Choose a story, theme, and tone in the left panel, then send a retelling request.</div>
+          <ol class="steps" id="steps">
+            <li data-step="1"><span class="num">1</span> Choose a Bible story <button type="button" class="jump" id="jumpStory">Pick one</button></li>
+            <li data-step="2"><span class="num">2</span> Shape it (optional) — switch on only the options you want</li>
+            <li data-step="3"><span class="num">3</span> Press <strong>Retell</strong></li>
+          </ol>
+          <button type="button" class="howto" id="howtoBtn" hidden>How it works</button>
+          <div class="chat-messages" id="chatMessages"></div>
+          <div class="detect-badge" id="detectBadge" hidden>
+            <span id="detectBadgeText"></span>
+            <button type="button" id="detectBadgeClear" title="Not this — clear it">✕</button>
           </div>
           <div class="suggestions" id="suggestions"></div>
           <form class="chat-input" id="chatForm">
             <textarea id="userPrompt" placeholder="Type an instruction for the retelling… (Enter to send, Shift+Enter for a new line)" rows="2" maxlength="2000"></textarea>
-            <button type="submit">Retell</button>
+            <button type="submit" id="retellBtn" disabled title="Choose a story, or name one / type a reference above">Retell</button>
           </form>
         </div>
       </section>
@@ -82,7 +100,11 @@
 
     <!-- ===== Feedback panel ===== -->
     <footer class="feedback-panel" id="feedbackPanel">
-      <div class="feedback-title">Retelling Feedback</div>
+      <div class="feedback-resize-handle" id="feedbackResizeHandle" role="separator" aria-label="Resize feedback panel"></div>
+      <div class="feedback-title">
+        <span>Retelling Feedback</span>
+        <button id="collapseFeedback" class="icon-btn" title="Collapse" aria-label="Collapse feedback panel">▼</button>
+      </div>
       <div class="feedback-columns">
         <div class="feedback-col"><h3>Original Story</h3><div id="originalMeta"></div></div>
         <div class="feedback-col"><h3>Retelling Metadata</h3><div id="retellingMeta"></div></div>

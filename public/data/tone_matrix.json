@@ -1,16 +1,16 @@
 {
   "emotional_intensity": [
-    { "id": "calm", "name": "Calm", "value": 1 },
-    { "id": "steady", "name": "Steady", "value": 2 },
-    { "id": "earnest", "name": "Earnest", "value": 3 },
-    { "id": "tense", "name": "Tense", "value": 4 },
-    { "id": "dramatic", "name": "Dramatic", "value": 5 }
+    { "id": "calm", "name": "Calm", "value": 1, "description": "Quiet, unhurried, and gentle in feeling." },
+    { "id": "steady", "name": "Steady", "value": 2, "description": "Even-keeled, with only mild emotional rise and fall." },
+    { "id": "earnest", "name": "Earnest", "value": 3, "description": "Sincere and heartfelt, a natural middle ground." },
+    { "id": "tense", "name": "Tense", "value": 4, "description": "Charged with urgency, stakes, and felt pressure." },
+    { "id": "dramatic", "name": "Dramatic", "value": 5, "description": "Heightened, vivid, and emotionally intense throughout." }
   ],
   "spiritual_focus": [
-    { "id": "subtle", "name": "Subtle", "value": 1 },
-    { "id": "quiet", "name": "Quiet", "value": 2 },
-    { "id": "clear", "name": "Clear", "value": 3 },
-    { "id": "direct", "name": "Direct", "value": 4 },
-    { "id": "explicit", "name": "Explicit", "value": 5 }
+    { "id": "subtle", "name": "Subtle", "value": 1, "description": "The spiritual meaning is left implicit, for the reader to find." },
+    { "id": "quiet", "name": "Quiet", "value": 2, "description": "Mostly understated, with only light spiritual framing." },
+    { "id": "clear", "name": "Clear", "value": 3, "description": "The spiritual point is plainly present without being heavy-handed." },
+    { "id": "direct", "name": "Direct", "value": 4, "description": "The spiritual meaning is stated outright, more than implied." },
+    { "id": "explicit", "name": "Explicit", "value": 5, "description": "The spiritual and doctrinal point is named clearly and fully." }
   ]
 }

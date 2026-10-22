@@ -65,7 +65,7 @@ Regenerate it after editing `stories.json` with `npm run fetch-passages` (needs 
 
 ## Architecture
 
-- **Frontend** (`public/`): vanilla JS modules in `components/`. `state.js` is a small store holding the single `metadata` object; every selector updates it and components subscribe to changes. `constants.js` is shared with the server.
-- **Backend** (`server.js`, `lib/`): Express server. `POST /api/retell` validates metadata (`lib/validate.js`), formats it into a structured prompt with the source passage (`lib/prompt.js`), and calls OpenAI. `GET /api/data` serves the bundled JSON.
+- **Frontend** (`public/`): vanilla JS modules in `components/`. `state.js` is a small store holding the `metadata` object, a per-field `enabled` map, and the loaded reference data; every selector updates it and components subscribe to changes. Story is required; every other single-value field (setting, literary form, persona, anchor, imperative alignment, era, symbolic density, each tone axis) has an enable switch that is off by default. `effectiveMetadata()` turns a disabled field into `null` before it's sent, so nothing the reader hasn't deliberately switched on can shape the retelling. `constants.js` is shared with the server.
+- **Backend** (`server.js`, `lib/`): Express server. `POST /api/retell` validates metadata (`lib/validate.js`) — unset or invalid optional fields stay `null`, never a substituted default — formats it into a structured prompt with the source passage (`lib/prompt.js`), and calls the AI. Unset fields get no section in the prompt at all. `GET /api/data` serves the bundled JSON.
 - **AI Layer**: OpenAI Chat Completions API. The frontend only displays the returned text.
 - **Local static data** (`public/data/`): `passages.json`, `stories.json`, `themes.json`, `settings.json`, `personas.json`, `literary_forms.json`, `tone_matrix.json`, `symbols.json`, `anchors.json`, `character_roles.json`.

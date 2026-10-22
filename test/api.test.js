@@ -37,9 +37,40 @@ test("POST /api/retell forwards the user's instruction", async () => {
   assert.ok(lastPrompt.includes("Use plain words."));
 });
 
+test("POST /api/retell with only a story leaves every opt-in field out of the prompt", async () => {
+  const res = await post({ story: "ruth" });
+  assert.equal(res.status, 200);
+  for (const heading of ["## Era", "## Setting", "## Literary Form", "## Voice Persona", "## Theological Anchor", "## Biblical Imperative Alignment"]) {
+    assert.ok(!lastPrompt.includes(heading), `should omit ${heading}`);
+  }
+});
+
 test("POST /api/retell rejects invalid input", async () => {
   assert.equal((await post({ story: "nope" })).status, 400);
   assert.equal((await post("{not json")).status, 400);
+  assert.equal((await post({ customReference: { book: "Nope", reference: "3:16" } })).status, 400);
+  assert.equal((await post({})).status, 400);
+});
+
+// These exercise the live, public-domain Bible text API (lib/bibleApi.js) for
+// a reference outside the curated 22 stories — same network dependency the
+// build-time `npm run fetch-passages` script already has, just at request time.
+test("POST /api/retell resolves a chat-detected reference outside the curated stories", async () => {
+  const res = await post({ customReference: { book: "John", reference: "11:1-44" } });
+  const j = await res.json();
+  assert.equal(res.status, 200, JSON.stringify(j));
+  assert.equal(j.subject.custom, true);
+  assert.equal(j.subject.book, "John");
+  assert.ok(j.subject.passageText.length > 100);
+  assert.ok(lastPrompt.includes("Source Passage"));
+  assert.ok(lastPrompt.includes("John 11:1-44"));
+});
+
+test("POST /api/retell returns a clear error for a reference that doesn't exist", async () => {
+  const res = await post({ customReference: { book: "John", reference: "999" } });
+  assert.equal(res.status, 502);
+  const j = await res.json();
+  assert.ok(j.error);
 });
 
 test("without an API key the default generator returns a placeholder", async () => {
